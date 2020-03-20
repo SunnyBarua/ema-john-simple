@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 
 import './App.css';
 import Header from './components/Header/Header';
@@ -13,12 +13,19 @@ import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import ProductDetail from './components/ProductDetail/ProductDetail';
-
+import Login from './components/Login/Login';
+import { AuthContextProvider, PrivateRoute } from './components/Login/useAuth';
+import Shipment from './components/Shipment/Shipment';
 
 
 function App() {
+  const user={
+    name:'kodumia',email:'kodu@gmail.com'
+  }
   return (
     <div className="App">
+      
+  <AuthContextProvider>
        <Header></Header>
       <Router>
         <Switch>
@@ -37,11 +44,23 @@ function App() {
           <Route path="/product/:productKey">
             <ProductDetail></ProductDetail>
           </Route>
+
+          <Route path="/login">
+            <Login></Login>
+          </Route>
+          <PrivateRoute path="/shipment">
+            <Shipment>
+
+            </Shipment>
+            </PrivateRoute>
           <Route path="*">
             <NotFound></NotFound>
           </Route>
         </Switch>
       </Router>   
+
+      </AuthContextProvider>
+      
   
     </div>
   );
